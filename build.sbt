@@ -2,7 +2,7 @@ organization := "com.nthportal"
 name := "play-json-value-format"
 description := "Utility for treating value classes as raw values for play-json."
 
-val rawVersion = "0.1.0"
+val rawVersion = "0.2.0"
 isSnapshot := false
 version := rawVersion + {if (isSnapshot.value) "-SNAPSHOT" else ""}
 
