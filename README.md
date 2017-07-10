@@ -11,7 +11,7 @@ Utility for treating value classes as raw values for play-json
 
 ### SBT
 ```
-"com.nthportal" %% "play-json-value-format" % "0.1.0"
+"com.nthportal" %% "play-json-value-format" % "0.2.0"
 ```
 
 ### Maven
@@ -19,6 +19,6 @@ Utility for treating value classes as raw values for play-json
 <dependency>
   <groupId>com.nthportal</groupId>
   <artifactId>play-json-value-format_2.12</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
