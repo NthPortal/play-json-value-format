@@ -19,9 +19,17 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.1+" % Test
 )
 
+scalacOptions ++= {
+  if (isSnapshot.value) Seq()
+  else scalaVersion.value split '.' map { _.toInt } match {
+    case Array(2, 12, patch) if patch <= 2 => Seq("-opt:l:project")
+    case Array(2, 12, patch) if patch > 2 => Seq("-opt:l:inline")
+    case _ => Seq()
+  }
+}
+
 publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
+  if (isSnapshot.value) Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
   else None
 }
 
@@ -35,11 +43,11 @@ pomExtra :=
     <connection>scm:git:git@github.com:NthPortal/play-json-value-format.git</connection>
     <developerConnection>scm:git:git@github.com:NthPortal/play-json-value-format.git</developerConnection>
   </scm>
-    <developers>
-      <developer>
-        <id>NthPortal</id>
-        <name>NthPortal</name>
-        <url>https://github.com/NthPortal</url>
-      </developer>
-    </developers>
+  <developers>
+    <developer>
+      <id>NthPortal</id>
+      <name>NthPortal</name>
+      <url>https://github.com/NthPortal</url>
+    </developer>
+  </developers>
 

@@ -6,18 +6,21 @@ import play.api.libs.json._
 class ValTest extends FlatSpec with Matchers {
   import ValTest._
 
-  def checkReads(method: String)(implicit reads: Reads[IntVal]): Unit = {
-    s"Val.$method" should "read JSON correctly" in {
+  "Val.reads and Val.format" should "read JSON correctly" in {
+    def check(implicit reads: Reads[IntVal]): Unit = {
       val str = Json.toJson(1).toString()
 
       val from = Json.fromJson[IntVal](Json.parse(str))
       from.isSuccess shouldBe true
       from.get shouldBe IntVal(1)
     }
+
+    check(Val.format(IntVal))
+    check(Val.reads(IntVal))
   }
 
-  def checkWrites(method: String)(implicit reads: Writes[IntVal]): Unit = {
-    s"Val.$method" should "write JSON correctly" in {
+  "Val.writes and Val.format" should "write JSON correctly" in {
+    def check(implicit reads: Writes[IntVal]): Unit = {
       val str = Json.toJson(IntVal(1)).toString()
 
       str shouldEqual Json.toJson(1).toString()
@@ -25,13 +28,10 @@ class ValTest extends FlatSpec with Matchers {
       from.isSuccess shouldBe true
       from.get shouldBe 1
     }
+
+    check(Val.format(IntVal))
+    check(Val.writes(IntVal))
   }
-
-  checkReads("format")(Val.format(IntVal))
-  checkReads("reads")(Val.reads(IntVal))
-
-  checkWrites("format")(Val.format(IntVal))
-  checkWrites("writes")(Val.writes(IntVal))
 }
 
 object ValTest {
